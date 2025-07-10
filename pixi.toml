@@ -18,7 +18,7 @@ download-hero-model = """
 download-vdr-data = """
       bash -c '[ ! -d \"data/vdr\" ] && (gdown 1x-auV7vGCMdu5yZUMPcoP83p77QOuasT -O data/ && unzip data/vdr.zip -d data/) || echo \"Dataset already downloaded.\"'
 """
-download-data = {cmd="pwd", depends_on = ["download-hero-model", "download-vdr-data"]}
+download-data = {cmd="pwd", depends-on = ["download-hero-model", "download-vdr-data"]}
 
 [dependencies]
 python = "3.9.*"
@@ -58,6 +58,29 @@ vdr = """OMP_NUM_THREADS=1 python rerun_visualize_live_meshing.py \
             --config_file configs/models/hero_model.yaml \
             --load_weights_from_checkpoint weights/hero_model.ckpt \
             --data_config_file configs/data/vdr_dense_rerun.yaml \
+            --num_workers 8 \
+            --run_fusion \
+            --depth_fuser open3d \
+            --fuse_color"""
+
+vdr2 = """OMP_NUM_THREADS=1 python rerun_visualize_live_meshing_2.py \
+            --name HERO_MODEL \
+            --output_base_path OUTPUT_PATH \
+            --config_file configs/models/hero_model.yaml \
+            --load_weights_from_checkpoint weights/hero_model.ckpt \
+            --data_config_file configs/data/vdr_dense_rerun.yaml \
+            --num_workers 8 \
+            --run_fusion \
+            --depth_fuser open3d \
+            --fuse_color"""
+
+
+anycam = """OMP_NUM_THREADS=1 python rerun_visualize_live_meshing_2.py \
+            --name HERO_MODEL \
+            --output_base_path OUTPUT_PATH \
+            --config_file configs/models/hero_model.yaml \
+            --load_weights_from_checkpoint weights/hero_model.ckpt \
+            --data_config_file configs/data/anycam_default.yaml \
             --num_workers 8 \
             --run_fusion \
             --depth_fuser open3d \

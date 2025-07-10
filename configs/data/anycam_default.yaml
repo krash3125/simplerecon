@@ -1,0 +1,9 @@
+!!python/object:options.Options
+dataset_path: data/anycam
+tuple_info_file_location: data_splits/anycam/
+dataset_scan_split_file: data_splits/anycam/scans.txt
+dataset: anycam
+mv_tuple_file_suffix: null
+num_images_in_tuple: 8
+frame_tuple_type: dense
+split: test
